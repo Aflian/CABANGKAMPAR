@@ -18,6 +18,7 @@ class RekapKaderResource extends Resource
     protected static ?string $model = RekapKader::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+        protected static ?string $navigationLabel = 'Rekap Kader';
 
     public static function form(Form $form): Form
     {

@@ -18,6 +18,7 @@ class KomisariatResource extends Resource
     protected static ?string $model = Komisariat::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationLabel = 'Komisariat';
 
     public static function form(Form $form): Form
     {
