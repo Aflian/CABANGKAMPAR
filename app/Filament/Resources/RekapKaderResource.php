@@ -3,37 +3,56 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\RekapKaderResource\Pages;
-use App\Filament\Resources\RekapKaderResource\RelationManagers;
 use App\Models\RekapKader;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class RekapKaderResource extends Resource
 {
     protected static ?string $model = RekapKader::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-        protected static ?string $navigationLabel = 'Rekap Kader';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-check';
+    protected static ?string $navigationLabel = 'Rekap Kader';
+    protected static ?string $pluralModelLabel = 'Rekap Data Kader';
+    protected static ?string $modelLabel = 'Rekap Kader';
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('user_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('kegiatan')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\DatePicker::make('tanggal')
-                    ->required(),
-                Forms\Components\Textarea::make('keterangan')
-                    ->columnSpanFull(),
+                Forms\Components\Section::make('Informasi Rekap')
+                    ->schema([
+                        Forms\Components\Select::make('user_id')
+                            ->label('Nama Kader')
+                            ->relationship('user', 'name')
+                            ->searchable()
+                            ->required()
+                            ->preload()
+                            ->placeholder('Pilih kader...'),
+
+                        Forms\Components\TextInput::make('kegiatan')
+                            ->label('Nama Kegiatan')
+                            ->placeholder('Contoh: Pelatihan Kepemimpinan Dasar')
+                            ->required()
+                            ->maxLength(255),
+
+                        Forms\Components\DatePicker::make('tanggal')
+                            ->label('Tanggal Kegiatan')
+                            ->displayFormat('d M Y')
+                            ->required(),
+
+                        Forms\Components\Textarea::make('keterangan')
+                            ->label('Keterangan Tambahan')
+                            ->placeholder('Tuliskan keterangan tambahan kegiatan jika ada...')
+                            ->columnSpanFull(),
+                    ])
+                    ->columns(2)
+                    ->collapsible(),
             ]);
     }
 
@@ -41,40 +60,57 @@ class RekapKaderResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('Nama Kader')
+                    ->sortable()
+                    ->searchable()
+                    ->color('primary')
+                    ->weight('bold'),
+
                 Tables\Columns\TextColumn::make('kegiatan')
-                    ->searchable(),
+                    ->label('Kegiatan')
+                    ->sortable()
+                    ->searchable()
+                    ->limit(50),
+
                 Tables\Columns\TextColumn::make('tanggal')
-                    ->date()
+                    ->label('Tanggal')
+                    ->date('d M Y')
                     ->sortable(),
+
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                    ->label('Dibuat')
+                    ->dateTime('d M Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->label('Diperbarui')
+                    ->dateTime('d M Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
+            ->defaultSort('tanggal', 'desc')
+            ->filters([])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()->label('Detail'),
+                Tables\Actions\EditAction::make()->label('Edit'),
+                Tables\Actions\DeleteAction::make()->label('Hapus'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()->label('Hapus Terpilih'),
                 ]),
-            ]);
+            ])
+            ->emptyStateHeading('Belum ada data rekap kader')
+            ->emptyStateDescription('Tambahkan rekap kegiatan kader dengan mengklik tombol "Buat Rekap Kader".')
+            ->emptyStateIcon('heroicon-o-clipboard-document-check');
     }
 
     public static function getRelations(): array
     {
         return [
-            //
+            // Contoh: RelationManagers\PrestasiKaderRelationManager::class,
         ];
     }
 

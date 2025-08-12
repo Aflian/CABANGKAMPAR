@@ -3,41 +3,65 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Resources\Resource;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\DateTimePicker;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationLabel = 'Data Kader';
+    protected static ?string $navigationIcon = 'heroicon-o-users';
+
+    protected static ?string $navigationLabel = 'Manajemen Kader';
+    protected static ?string $pluralModelLabel = 'Data Kader';
+    protected static ?string $modelLabel = 'Kader';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
+                    ->label('Nama')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('email')
+
+                TextInput::make('email')
+                    ->label('Email')
                     ->email()
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\DateTimePicker::make('email_verified_at'),
-                Forms\Components\TextInput::make('password')
+                    ->unique(ignoreRecord: true),
+
+                TextInput::make('password')
+                    ->label('Password')
                     ->password()
-                    ->required()
+                    ->dehydrateStateUsing(fn ($state) => !empty($state) ? bcrypt($state) : null)
+                    ->required(fn ($record) => $record === null)
                     ->maxLength(255),
-                Forms\Components\TextInput::make('roles')
+
+                Select::make('roles')
+                    ->label('Peran')
+                    ->options([
+                        'admin' => 'Admin',
+                        'kader' => 'Kader',
+                    ])
+                    ->default('kader')
                     ->required(),
+
+                DateTimePicker::make('email_verified_at')
+                    ->label('Email Terverifikasi')
+                    ->nullable(),
+
+                TextInput::make('remember_token')
+                    ->label('Remember Token')
+                    ->maxLength(100)
+                    ->nullable(),
             ]);
     }
 
@@ -45,41 +69,27 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('email_verified_at')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('roles'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('name')->label('Nama')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('email')->label('Email')->searchable(),
+                Tables\Columns\BadgeColumn::make('roles')
+                    ->label('Peran')
+                    ->colors([
+                        'success' => 'admin',
+                        'primary' => 'kader',
+                    ]),
+                Tables\Columns\TextColumn::make('created_at')->label('Dibuat')->dateTime(),
+                Tables\Columns\TextColumn::make('updated_at')->label('Diubah')->dateTime(),
             ])
-            ->filters([
-                //
-            ])
+            ->filters([])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array
