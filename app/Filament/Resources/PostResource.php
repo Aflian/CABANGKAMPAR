@@ -24,6 +24,7 @@ class PostResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
     protected static ?string $navigationLabel = 'Postingan';
+    protected static ?string $navigationGroup = 'Postingan';
     protected static ?string $pluralModelLabel = 'Daftar Postingan';
     protected static ?string $modelLabel = 'Postingan';
 

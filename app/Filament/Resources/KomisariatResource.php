@@ -16,6 +16,7 @@ class KomisariatResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-building-office';
     protected static ?string $navigationLabel = 'Komisariat';
+    protected static ?string $navigationGroup = 'Organisasi';
     protected static ?string $pluralModelLabel = 'Daftar Komisariat';
     protected static ?string $modelLabel = 'Komisariat';
     protected static ?int $navigationSort = 2;

@@ -17,6 +17,7 @@ class RekapKaderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-check';
     protected static ?string $navigationLabel = 'Rekap Kader';
+    protected static ?string $navigationGroup = 'Kader';
     protected static ?string $pluralModelLabel = 'Rekap Data Kader';
     protected static ?string $modelLabel = 'Rekap Kader';
     protected static ?int $navigationSort = 3;
