@@ -27,6 +27,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#kegiatan">Kegiatan</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link border-none px-4 rounded-pill bg-warning " href="/kader/login">Login</a>
+                </li>
             </ul>
         </div>
     </div>

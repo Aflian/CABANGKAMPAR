@@ -491,6 +491,9 @@
     @include('component.nav')
     <!-- Hero Section -->
     @include('component.hero')
+    {{-- COROUSEL SECTION --}}
+    @include('component.slider')
+    {{-- COROUSEL SECTION --}}
     <!-- Stats/Rekap Kader Section -->
     @include('component.stat')
     <!-- Posts Section -->

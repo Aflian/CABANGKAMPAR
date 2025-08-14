@@ -1,0 +1,47 @@
+[33mcommit 91e6dfacbbf35e2a585fb9ff8d63f896b5bb5be3[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Aflian <afliandra2012@gmail.com>
+Date:   Wed Aug 13 17:32:10 2025 +0700
+
+    merapikan bagian welcome
+
+[33mcommit e2255151f0608d15a5d967fe284aa8f55f43c1a6[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: Aflian <afliandra2012@gmail.com>
+Date:   Wed Aug 13 17:03:37 2025 +0700
+
+    fitur admin done
+
+[33mcommit 1a66d9f7560d1b49720236e61fa9f6f33ca713ed[m
+Author: Aflian <afliandra2012@gmail.com>
+Date:   Tue Aug 12 16:23:13 2025 +0700
+
+    penambahan fitur post resource
+
+[33mcommit edcb74e78e93cb8123f2a66de237b9013ea3b2fb[m
+Author: Aflian <afliandra2012@gmail.com>
+Date:   Tue Aug 12 15:44:53 2025 +0700
+
+    memperbagus bagian resource admin (kader/user,komisariat,rekap kegiatan kader)
+
+[33mcommit 018efc92e5149c3cfc4fba9d296ddb262d163cf6[m
+Author: Aflian <afliandra2012@gmail.com>
+Date:   Tue Aug 12 15:21:24 2025 +0700
+
+    membuat middleware
+
+[33mcommit 36e047d742605791f2d44eb35949974627806533[m
+Author: Aflian <afliandra2012@gmail.com>
+Date:   Sun Aug 10 17:36:20 2025 +0700
+
+    pembuatan panel kader dan login dan regis
+
+[33mcommit ee49a9f16698202aa2f89be2e867fc3dab7438e7[m
+Author: Aflian <afliandra2012@gmail.com>
+Date:   Sun Aug 10 17:30:38 2025 +0700
+
+    merubah title dashboard admin
+
+[33mcommit 5f2e5865d356c638cd092d6c804e998dc0c7b31b[m
+Author: Aflian <afliandra2012@gmail.com>
+Date:   Sun Aug 10 17:22:52 2025 +0700
+
+    first commit
