@@ -11,6 +11,8 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\DateTimePicker;
 
 class UserResource extends Resource
@@ -32,11 +34,47 @@ class UserResource extends Resource
                     ->required()
                     ->maxLength(255),
 
+                TextInput::make('alamat')
+                    ->label('Alamat')
+                    ->maxLength(255),
+
+                TextInput::make('telepon')
+                    ->label('Telepon')
+                    ->tel()
+                    ->maxLength(255),
+
+                TextInput::make('tempatLahir')
+                    ->label('Tempat Lahir')
+                    ->maxLength(255),
+
+                DatePicker::make('taggalLahir')
+                    ->label('Tanggal Lahir')
+                    ->nullable(),
+
+                TextInput::make('perkaderan')
+                    ->label('Perkaderan')
+                    ->default('DAD')
+                    ->maxLength(255),
+
+                TextInput::make('universitas')
+                    ->label('Universitas')
+                    ->maxLength(255),
+
+                FileUpload::make('photo')
+                    ->label('Foto')
+                    ->image()
+                    ->directory('photos')
+                    ->nullable(),
+
                 TextInput::make('email')
                     ->label('Email')
                     ->email()
                     ->required()
                     ->unique(ignoreRecord: true),
+
+                DateTimePicker::make('email_verified_at')
+                    ->label('Email Terverifikasi')
+                    ->nullable(),
 
                 TextInput::make('password')
                     ->label('Password')
@@ -54,10 +92,6 @@ class UserResource extends Resource
                     ->default('kader')
                     ->required(),
 
-                DateTimePicker::make('email_verified_at')
-                    ->label('Email Terverifikasi')
-                    ->nullable(),
-
                 TextInput::make('remember_token')
                     ->label('Remember Token')
                     ->maxLength(100)
@@ -69,16 +103,43 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->label('Nama')->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('email')->label('Email')->searchable(),
+                Tables\Columns\ImageColumn::make('photo')
+                    ->label('Foto')
+                    ->square()
+                    ->size(40),
+
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Nama')
+                    ->searchable()
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('email')
+                    ->label('Email')
+                    ->searchable(),
+
+                Tables\Columns\TextColumn::make('telepon')
+                    ->label('Telepon'),
+
+                Tables\Columns\TextColumn::make('perkaderan')
+                    ->label('Perkaderan'),
+
+                Tables\Columns\TextColumn::make('universitas')
+                    ->label('Universitas'),
+
                 Tables\Columns\BadgeColumn::make('roles')
                     ->label('Peran')
                     ->colors([
                         'success' => 'admin',
                         'primary' => 'kader',
                     ]),
-                Tables\Columns\TextColumn::make('created_at')->label('Dibuat')->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')->label('Diubah')->dateTime(),
+
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Dibuat')
+                    ->dateTime(),
+
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Diubah')
+                    ->dateTime(),
             ])
             ->filters([])
             ->actions([

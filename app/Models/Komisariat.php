@@ -10,7 +10,7 @@ class Komisariat extends Model
     use HasFactory;
 
     protected $table = 'komisariat';
-    protected $fillable = ['nama', 'deskripsi', 'alamat'];
+    protected $fillable = ['nama','logo','deskripsi', 'alamat'];
 
     public function users()
     {

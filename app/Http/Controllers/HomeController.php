@@ -13,6 +13,7 @@ class HomeController extends Controller
         $TotalKader = User::Count();
         $TotalKomisariat = Komisariat::Count();
         $TotalPost = Post::Count();
-        return view('welcome',compact('TotalKader','TotalKomisariat','TotalPost'));
+        $GetPost = Post::latest()->take(5)->get();
+        return view('welcome',compact('TotalKader','TotalKomisariat','TotalPost','GetPost'));
     }
 }

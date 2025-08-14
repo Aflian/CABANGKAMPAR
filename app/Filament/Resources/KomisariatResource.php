@@ -2,13 +2,14 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\KomisariatResource\Pages;
-use App\Models\Komisariat;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Form;
+use App\Models\Komisariat;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\FileUpload;
+use App\Filament\Resources\KomisariatResource\Pages;
 
 class KomisariatResource extends Resource
 {
@@ -34,6 +35,16 @@ class KomisariatResource extends Resource
                             ->maxLength(255)
                             ->unique(ignoreRecord: true),
 
+                            FileUpload::make('logo')
+                            ->label('Logo Komsat')
+                            ->disk('public')
+                            ->directory('logo') // folder penyimpanan
+                            ->image()
+                            ->imagePreviewHeight('150')
+                            ->maxSize(2048)
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                            ->nullable(),
+
                         Forms\Components\Textarea::make('deskripsi')
                             ->label('Deskripsi')
                             ->placeholder('Tuliskan deskripsi singkat komisariat...')
@@ -55,6 +66,10 @@ class KomisariatResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('logo')
+                    ->label('Logo')
+                    ->square()
+                    ->size(80),
                 Tables\Columns\TextColumn::make('nama')
                     ->label('Nama Komisariat')
                     ->searchable()

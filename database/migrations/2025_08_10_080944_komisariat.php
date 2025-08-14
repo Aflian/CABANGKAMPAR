@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('komisariat', function (Blueprint $table) {
             $table->id();
             $table->string('nama', 255);
+            $table->string('logo')->nulllable();
             $table->text('deskripsi')->nullable();
             $table->text('alamat')->nullable();
             $table->timestamps();
