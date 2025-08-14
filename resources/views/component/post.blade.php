@@ -26,7 +26,7 @@
                                 {{ $gp->category }}
                             </div>
                             <div class="mt-3">
-                                <a href="" class="btn btn-warning rounded-pill btn-">
+                                <a href="{{ route('berita.show', $gp->slug) }}" class="btn btn-warning rounded-pill">
                                     Lihat Selengkapnya
                                 </a>
                             </div>

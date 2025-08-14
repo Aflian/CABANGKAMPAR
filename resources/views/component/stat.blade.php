@@ -26,7 +26,7 @@
             <div class="col-lg-3 col-md-6">
                 <div class="stats-card">
                     <i class="fas fa-trophy stats-icon"></i>
-                    <div class="stats-number">12</div>
+                    <div class="stats-number"> {{$TotalPrestasi}} </div>
                     <div class="stats-label">Prestasi</div>
                 </div>
             </div>
