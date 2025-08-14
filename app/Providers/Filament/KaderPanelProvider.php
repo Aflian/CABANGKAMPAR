@@ -34,6 +34,7 @@ class KaderPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/Kader/Pages'), for: 'App\\Filament\\Kader\\Pages')
             ->pages([
                 Pages\Dashboard::class,
+                // \App\Filament\Kader\Pages\Profile::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Kader/Widgets'), for: 'App\\Filament\\Kader\\Widgets')
             ->widgets([
