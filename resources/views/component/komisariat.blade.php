@@ -1,6 +1,6 @@
 <section id="komisariat" class="komisariat-section">
     <div class="container">
-        <h2 class="section-title">Komisariat IMM Kampar</h2>
+        <h2 class="section-title">Kampus Asal Kader IMM Kampar</h2>
         <div class="row g-4">
             <div class="col-lg-3 col-md-6">
                 <div class="komisariat-card">

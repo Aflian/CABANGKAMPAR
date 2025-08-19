@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class RoleCheck
+class AdminCheck
 {
     /**
      * Handle an incoming request.
@@ -15,6 +15,9 @@ class RoleCheck
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        if (auth()->user()->roles === 'admin') {
+            return $next($request);
+        }
+        abort(403, 'ANDA BUKAN ADMIN');
     }
 }
