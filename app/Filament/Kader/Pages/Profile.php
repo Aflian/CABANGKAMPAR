@@ -66,6 +66,5 @@ class Profile extends Page implements HasForms
         $user = Auth::user();
         $user->update($this->form->getState());
 
-        $this->notify('success', 'Profil berhasil diperbarui!');
     }
 }
